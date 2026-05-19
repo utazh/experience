@@ -1,0 +1,36 @@
+{
+  "harness_dir": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260504_16k16384_qwen7b_harness_state_control",
+  "internal_dir": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260504_16k16384_qwen7b_internal_state_compare",
+  "rows": [
+    {
+      "scenario": "no_promotion",
+      "harness_mean_subsequent_ttft_ms": 315.822,
+      "internal_mean_subsequent_ttft_ms": 359.832,
+      "delta_pct": 13.935064688337098,
+      "harness_match": 1.0,
+      "internal_match": 1.0,
+      "harness_final": "BASE_READY",
+      "internal_final": "BASE_READY"
+    },
+    {
+      "scenario": "promotion",
+      "harness_mean_subsequent_ttft_ms": 120.45,
+      "internal_mean_subsequent_ttft_ms": 128.889,
+      "delta_pct": 7.006226650062272,
+      "harness_match": 1.0,
+      "internal_match": 1.0,
+      "harness_final": "FULL_READY",
+      "internal_final": "FULL_READY"
+    },
+    {
+      "scenario": "oracle_full_ready",
+      "harness_mean_subsequent_ttft_ms": 120.357,
+      "internal_mean_subsequent_ttft_ms": 127.417,
+      "delta_pct": 5.865882333391496,
+      "harness_match": 1.0,
+      "internal_match": 1.0,
+      "harness_final": "FULL_READY",
+      "internal_final": "FULL_READY"
+    }
+  ]
+}

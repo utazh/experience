@@ -1,0 +1,32 @@
+# Python/cache artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Build/native artifacts
+build/
+dist/
+*.so
+*.pyd
+*.dll
+*.dylib
+
+# Experiment outputs and local run data
+runs/
+phase*_runs/
+*.log
+*.tmp
+*.tar
+*.tar.gz
+*.zip
+
+# Model/checkpoint/data artifacts
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.cache
+
+# Reference papers and local PDFs are kept outside the source repo.
+*.pdf

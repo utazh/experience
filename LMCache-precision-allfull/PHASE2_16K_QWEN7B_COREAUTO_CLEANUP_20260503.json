@@ -1,0 +1,170 @@
+{
+  "artifact": "PHASE2_16K_QWEN7B_COREAUTO_CLEANUP_20260503",
+  "run_dir": "phase2_runs/20260503_16k16384_qwen7b_phase2_coreauto_cleanup",
+  "model": "/data1/llm/Qwen/Qwen2.5-7B-Instruct",
+  "context_len": 16384,
+  "scenarios": {
+    "no_promotion": {
+      "scenario": "no_promotion",
+      "prefix_id": "3286419f03814668",
+      "final_state": "BASE_READY",
+      "access_count": 6,
+      "base_hit_count": 6,
+      "full_hit_count": 0,
+      "full_reuse_count": 0,
+      "promotion_enqueued": 0,
+      "promotion_success": 0,
+      "promotion_failure": 0,
+      "promotion_dropped": 0,
+      "promotion_latency_p50_ms": null,
+      "promotion_reuse_rate": null,
+      "context_len": 16384,
+      "max_tokens": 4,
+      "num_followup_requests": 6,
+      "first_followup_ttft_ms": 486.467,
+      "mean_followup_ttft_ms": 416.137,
+      "mean_subsequent_ttft_ms": 402.071,
+      "mean_followup_match_rate": 1.0,
+      "promotion_mode": "request_driven_full_disk_retrieve_writeback",
+      "experiment_boundary": "first-request base/full dual-store is enabled; base is stored to the configured fast target and full to the configured slow target; promotion is approximated by a request-driven full-disk retrieve that writes back to LocalCPU, not by an independent background scheduler"
+    },
+    "promotion": {
+      "scenario": "promotion",
+      "prefix_id": "4a9a13e9739a3d3c",
+      "final_state": "FULL_READY",
+      "access_count": 6,
+      "base_hit_count": 1,
+      "full_hit_count": 5,
+      "full_reuse_count": 5,
+      "promotion_enqueued": 1,
+      "promotion_success": 1,
+      "promotion_failure": 0,
+      "promotion_dropped": 0,
+      "promotion_latency_p50_ms": 604.176,
+      "promotion_reuse_rate": 5.0,
+      "context_len": 16384,
+      "max_tokens": 4,
+      "num_followup_requests": 6,
+      "first_followup_ttft_ms": 355.847,
+      "mean_followup_ttft_ms": 168.352,
+      "mean_subsequent_ttft_ms": 130.853,
+      "mean_followup_match_rate": 1.0,
+      "promotion_mode": "request_driven_full_disk_retrieve_writeback",
+      "experiment_boundary": "first-request base/full dual-store is enabled; base is stored to the configured fast target and full to the configured slow target; promotion is approximated by a request-driven full-disk retrieve that writes back to LocalCPU, not by an independent background scheduler"
+    },
+    "oracle_full_ready": {
+      "scenario": "oracle_full_ready",
+      "prefix_id": "7c0747363b5a46c2",
+      "final_state": "FULL_READY",
+      "access_count": 6,
+      "base_hit_count": 0,
+      "full_hit_count": 6,
+      "full_reuse_count": 0,
+      "promotion_enqueued": 0,
+      "promotion_success": 0,
+      "promotion_failure": 0,
+      "promotion_dropped": 0,
+      "promotion_latency_p50_ms": null,
+      "promotion_reuse_rate": null,
+      "context_len": 16384,
+      "max_tokens": 4,
+      "num_followup_requests": 6,
+      "first_followup_ttft_ms": 131.875,
+      "mean_followup_ttft_ms": 132.597,
+      "mean_subsequent_ttft_ms": 132.742,
+      "mean_followup_match_rate": 1.0,
+      "promotion_mode": "request_driven_full_disk_retrieve_writeback",
+      "experiment_boundary": "first-request base/full dual-store is enabled; base is stored to the configured fast target and full to the configured slow target; promotion is approximated by a request-driven full-disk retrieve that writes back to LocalCPU, not by an independent background scheduler"
+    }
+  },
+  "derived": {
+    "promotion_vs_no_promotion_mean_subsequent_ttft_delta_ms": 271.218,
+    "promotion_vs_no_promotion_mean_subsequent_ttft_improvement_pct": 67.455,
+    "promotion_vs_oracle_mean_subsequent_ttft_delta_ms": -1.889,
+    "promotion_vs_no_promotion_mean_followup_ttft_delta_ms": 247.785,
+    "promotion_vs_no_promotion_mean_followup_ttft_improvement_pct": 59.544,
+    "promotion_vs_oracle_mean_followup_ttft_delta_ms": 35.755
+  },
+  "quality": {
+    "no_promotion": 1.0,
+    "promotion": 1.0,
+    "oracle_full_ready": 1.0
+  },
+  "core_auto": {
+    "core_auto_decision_rows": 36,
+    "request_rows_using_core_auto": 18,
+    "core_auto_mismatch_count": 0,
+    "all_core_auto_requests_matched": true
+  },
+  "routing": {
+    "run_dir": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260503_16k16384_qwen7b_phase2_coreauto_cleanup",
+    "log_path": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260503_16k16384_qwen7b_phase2_coreauto_cleanup/run.log",
+    "disk_dir": "/data1/panzihang/lmcache_phase2_disk/20260503_16k16384_qwen7b_phase2_coreauto_cleanup",
+    "dual_write_events": 16,
+    "base_locations": [
+      "LocalCPUBackend"
+    ],
+    "full_locations": [
+      "LocalDiskBackend"
+    ],
+    "disk_file_count": 192,
+    "full_disk_file_count": 192,
+    "base_disk_file_count": 0,
+    "ok": true,
+    "errors": []
+  },
+  "cleanup": {
+    "rows_with_cleanup_events": 13,
+    "promotion_cleanup_rows": [
+      {
+        "request_kind": "promotion_materialize_full",
+        "sequence_index": 1,
+        "requested_fidelity": "full",
+        "base_cleanup_chunks": 64,
+        "base_cleanup_removed": 64,
+        "ttft_ms": 557.083
+      },
+      {
+        "request_kind": "followup",
+        "sequence_index": 2,
+        "requested_fidelity": "full",
+        "base_cleanup_chunks": 64,
+        "base_cleanup_removed": 0,
+        "ttft_ms": 131.05
+      },
+      {
+        "request_kind": "followup",
+        "sequence_index": 3,
+        "requested_fidelity": "full",
+        "base_cleanup_chunks": 64,
+        "base_cleanup_removed": 0,
+        "ttft_ms": 130.934
+      },
+      {
+        "request_kind": "followup",
+        "sequence_index": 4,
+        "requested_fidelity": "full",
+        "base_cleanup_chunks": 64,
+        "base_cleanup_removed": 0,
+        "ttft_ms": 130.792
+      },
+      {
+        "request_kind": "followup",
+        "sequence_index": 5,
+        "requested_fidelity": "full",
+        "base_cleanup_chunks": 64,
+        "base_cleanup_removed": 0,
+        "ttft_ms": 130.809
+      },
+      {
+        "request_kind": "followup",
+        "sequence_index": 6,
+        "requested_fidelity": "full",
+        "base_cleanup_chunks": 64,
+        "base_cleanup_removed": 0,
+        "ttft_ms": 130.678
+      }
+    ],
+    "promotion_total_base_cleanup_removed": 64
+  }
+}

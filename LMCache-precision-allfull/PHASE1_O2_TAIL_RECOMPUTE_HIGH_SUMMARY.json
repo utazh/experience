@@ -1,0 +1,57 @@
+{
+  "artifact": "PHASE1_O2_TAIL_RECOMPUTE_HIGH_SUMMARY",
+  "eager_drain_count": 0,
+  "rows": [
+    {
+      "context_len": 16384,
+      "effective_hit_ratio": 0.984375,
+      "effective_lmcache_hit_tokens": 16128,
+      "output_match_rate_vs_full_ref": 1.0,
+      "output_token_ids": [
+        23
+      ],
+      "requested_fidelity": "base",
+      "retrieve_ms": 357.1467,
+      "retrieve_size_gb": 0.434,
+      "reuse_bucket": "high",
+      "scenario": "o2_tail_recompute_high",
+      "store_ms": null,
+      "tail_recompute_chunk_tokens": 256,
+      "ttft_delta_vs_o1_ms": 172.105,
+      "ttft_delta_vs_old_o2_ms": -122.078,
+      "ttft_delta_vs_phase0_ms": 17.65,
+      "ttft_ms": 417.619,
+      "ttft_speedup_vs_o1_x": 0.58789,
+      "ttft_speedup_vs_old_o2_x": 1.292319,
+      "ttft_speedup_vs_phase0_x": 0.957737,
+      "use_layerwise": true
+    },
+    {
+      "context_len": 32512,
+      "effective_hit_ratio": 0.992126,
+      "effective_lmcache_hit_tokens": 32256,
+      "output_match_rate_vs_full_ref": 1.0,
+      "output_token_ids": [
+        17
+      ],
+      "requested_fidelity": "base",
+      "retrieve_ms": 758.2209,
+      "retrieve_size_gb": 0.8681,
+      "reuse_bucket": "high",
+      "scenario": "o2_tail_recompute_high",
+      "store_ms": null,
+      "tail_recompute_chunk_tokens": 256,
+      "ttft_delta_vs_o1_ms": 431.881,
+      "ttft_delta_vs_old_o2_ms": -88.248,
+      "ttft_delta_vs_phase0_ms": 227.94,
+      "ttft_ms": 858.512,
+      "ttft_speedup_vs_o1_x": 0.496942,
+      "ttft_speedup_vs_old_o2_x": 1.102792,
+      "ttft_speedup_vs_phase0_x": 0.734494,
+      "use_layerwise": true
+    }
+  ],
+  "run_root": "phase1_runs/20260423_170508_o2_tail_recompute_high_matrix",
+  "tail_recompute_count": 2,
+  "workaround": "LMCACHE_LAYERWISE_FULL_HIT_RECOMPUTE_TAIL_CHUNK=True caps full-hit layerwise loads by one 256-token chunk to force vLLM prefill layer hooks and avoid eager drain."
+}

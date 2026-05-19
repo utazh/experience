@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+POLICY="${1:?policy required: all-full|all-base|threshold-mixed}"
+THRESHOLD="${2:-}"
+SAMPLES="${3:-30}"
+GPU="${GPU:-3}"
+MAX_MODEL_LEN="${MAX_MODEL_LEN:-8192}"
+NUM_BLOCKS="${NUM_BLOCKS:-768}"
+L1_SIZE_GB="${L1_SIZE_GB:-4}"
+MODEL_PATH="${MODEL_PATH:-/data1/llm/Qwen/Qwen2-7B-Instruct}"
+SERVED_MODEL="${SERVED_MODEL:-qwen2-7b}"
+REPO="/home/panzihang/src/experience/LMCache-precision-allfull"
+TOOLS="/home/panzihang/src/experience/quality_tools"
+STAMP="$(date +%Y%m%d_%H%M%S)"
+SAFE_POLICY="${POLICY//[^A-Za-z0-9_.-]/_}"
+RUN_DIR="/home/panzihang/src/experience/runs/quality_quick_${STAMP}_${SAFE_POLICY}${THRESHOLD:+_${THRESHOLD}}_qwen2_7b_gpu${GPU}"
+mkdir -p "$RUN_DIR"
+
+if ss -ltn | awk '{print $4}' | grep -Eq ':(8000|8080|5555)$'; then
+  echo "ports 8000/8080/5555 are occupied" >&2
+  ss -ltnp | grep -E ':(8000|8080|5555)' >&2 || true
+  exit 2
+fi
+
+cat > "$RUN_DIR/start_lmcache.sh" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+source /home/panzihang/venvs/vllm-stable/bin/activate
+export LMCACHE_PRECISION_POLICY=${POLICY}
+export LMCACHE_ENABLE_FIDELITY_CACHE=True
+export LMCACHE_DEFAULT_FIDELITY=base
+export LMCACHE_BASE_CODEC=int8
+export LMCACHE_MIXED_SINK_CHUNKS=1
+${THRESHOLD:+export LMCACHE_PRECISION_THRESHOLD=${THRESHOLD}}
+export PYTHONPATH="${REPO}:\${PYTHONPATH:-}"
+cd ${REPO}
+exec python -m lmcache.v1.multiprocess.http_server --l1-size-gb ${L1_SIZE_GB} --eviction-policy LRU --host 127.0.0.1 --port 5555 --http-host 127.0.0.1 --http-port 8080
+EOF
+chmod +x "$RUN_DIR/start_lmcache.sh"
+
+cat > "$RUN_DIR/start_vllm.sh" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+source /home/panzihang/venvs/vllm-stable/bin/activate
+export CUDA_VISIBLE_DEVICES=${GPU}
+export LMCACHE_PRECISION_POLICY=${POLICY}
+export LMCACHE_ENABLE_FIDELITY_CACHE=True
+export LMCACHE_DEFAULT_FIDELITY=base
+export LMCACHE_BASE_CODEC=int8
+export LMCACHE_MIXED_SINK_CHUNKS=1
+${THRESHOLD:+export LMCACHE_PRECISION_THRESHOLD=${THRESHOLD}}
+export PYTHONPATH="${REPO}:\${PYTHONPATH:-}"
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
+exec vllm serve ${MODEL_PATH} --host 127.0.0.1 --port 8000 --served-model-name ${SERVED_MODEL} --max-model-len ${MAX_MODEL_LEN} --gpu-memory-utilization 0.88 --max-num-seqs 1 --num-gpu-blocks-override ${NUM_BLOCKS} --trust-remote-code --kv-transfer-config '{"kv_connector":"LMCacheMPConnector","kv_role":"kv_both"}'
+EOF
+chmod +x "$RUN_DIR/start_vllm.sh"
+
+cleanup() {
+  set +e
+  if [ -f "$RUN_DIR/vllm.pid" ]; then kill "$(cat "$RUN_DIR/vllm.pid")" 2>/dev/null || true; fi
+  if [ -f "$RUN_DIR/lmcache.pid" ]; then kill "$(cat "$RUN_DIR/lmcache.pid")" 2>/dev/null || true; fi
+  sleep 2
+  if [ -f "$RUN_DIR/vllm.pid" ]; then kill -9 "$(cat "$RUN_DIR/vllm.pid")" 2>/dev/null || true; fi
+  if [ -f "$RUN_DIR/lmcache.pid" ]; then kill -9 "$(cat "$RUN_DIR/lmcache.pid")" 2>/dev/null || true; fi
+}
+trap cleanup EXIT
+
+"$RUN_DIR/start_lmcache.sh" > "$RUN_DIR/lmcache.log" 2>&1 & echo $! > "$RUN_DIR/lmcache.pid"
+sleep 5
+"$RUN_DIR/start_vllm.sh" > "$RUN_DIR/vllm.log" 2>&1 & echo $! > "$RUN_DIR/vllm.pid"
+
+source /home/panzihang/venvs/vllm-stable/bin/activate
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
+python "$TOOLS/longbench_quality_client.py" \
+  --samples "$SAMPLES" \
+  --policy "${POLICY}${THRESHOLD:+:${THRESHOLD}}" \
+  --model-path "$MODEL_PATH" \
+  --served-model "$SERVED_MODEL" \
+  --max-model-len "$MAX_MODEL_LEN" \
+  --output-dir "$RUN_DIR/client" \
+  > "$RUN_DIR/client.log" 2>&1
+
+python "$TOOLS/summarize_quality_run.py" "$RUN_DIR" || true
+
+echo "$RUN_DIR"

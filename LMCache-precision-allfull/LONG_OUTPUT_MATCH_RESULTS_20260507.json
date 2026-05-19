@@ -1,0 +1,49 @@
+{
+  "title": "Long-output output-match validation for real datasets",
+  "date": "2026-05-07",
+  "status": "auxiliary/provisional because Qwen2.5-7B could not be run under current GPU availability",
+  "why_qwen7b_not_run_now": "GPU0 has only about 8.4 GiB free due unreleased memory; GPUs 1/2 are occupied by another user vLLM worker; GPU3 is running another user training job.",
+  "max_tokens_4_evidence": [
+    "phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/run.sh contains --max-tokens 4 for NarrativeQA, HotpotQA, and ShareGPT.",
+    "The corresponding narrativeqa.log/hotpotqa.log/sharegpt.log PHASE*_CONFIG rows contain \"max_tokens\": 4."
+  ],
+  "interpretation_en": "Low mean absolute KV error does not guarantee exact long-output match. On Llama-3.2-1B, NarrativeQA 16K generated 64 tokens naturally and diverged after retrieval from INT8 base cache, while HotpotQA 8K still matched exactly. Therefore long-output quality must be validated at the target model/dataset/output length, especially for Qwen2.5-7B 16K/64-token runs.",
+  "interpretation_zh": "较小的平均 KV 绝对误差不能直接推出长输出一定完全匹配。Llama-3.2-1B 上，NarrativeQA 16K 自然生成 64 token，INT8 base cache 取回后的 followup 输出发生明显分歧；HotpotQA 8K 则仍然完全匹配。因此必须在目标模型、目标数据集和目标输出长度上单独验证，尤其还需要补 Qwen2.5-7B 16K/64-token。",
+  "results": [
+    {
+      "run_key": "narrativeqa_16k_64_noignore",
+      "model": "/data1/llm/Llama-3.2-1B",
+      "dataset": "narrativeqa",
+      "context_len": 16384,
+      "max_tokens": 64,
+      "ignore_eos": false,
+      "reference_output_tokens": 64,
+      "base_prime_match_rate": 1.0,
+      "base_prime_exact_match": true,
+      "base_followup_match_rate": 0.0625,
+      "base_followup_exact_match": false,
+      "base_followup_output_tokens": 64,
+      "run_dir": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260507_1740_long_output_match_llama1b_narrativeqa_16k_64_noignore"
+    },
+    {
+      "run_key": "hotpotqa_8k_64_noignore",
+      "model": "/data1/llm/Llama-3.2-1B",
+      "dataset": "hotpotqa",
+      "context_len": 8192,
+      "max_tokens": 64,
+      "ignore_eos": false,
+      "reference_output_tokens": 64,
+      "base_prime_match_rate": 1.0,
+      "base_prime_exact_match": true,
+      "base_followup_match_rate": 1.0,
+      "base_followup_exact_match": true,
+      "base_followup_output_tokens": 64,
+      "run_dir": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260507_1740_long_output_match_llama1b_hotpotqa_8k_64_noignore"
+    }
+  ],
+  "run_dirs": {
+    "narrativeqa_16k_64_noignore": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260507_1740_long_output_match_llama1b_narrativeqa_16k_64_noignore",
+    "hotpotqa_8k_64_noignore": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260507_1740_long_output_match_llama1b_hotpotqa_8k_64_noignore",
+    "narrativeqa_16k_64_ignore_eos_failed_hotpot16k": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260507_1731_long_output_match_llama1b_16k_64"
+  }
+}

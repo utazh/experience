@@ -1,0 +1,119 @@
+{
+  "title": "Real KV INT8 Quantization Error Results",
+  "date": "2026-05-06",
+  "run_dir": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k",
+  "source_summary_file": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/REAL_KV_INT8_ERROR_SUMMARY.json",
+  "model": "/data1/llm/Qwen/Qwen2.5-7B-Instruct",
+  "context_len": 16384,
+  "datasets": [
+    "NarrativeQA",
+    "HotpotQA",
+    "ShareGPT"
+  ],
+  "trace_files": {
+    "NarrativeQA": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/narrativeqa_trace.jsonl",
+    "HotpotQA": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/hotpotqa_trace.jsonl",
+    "ShareGPT": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/sharegpt_trace.jsonl"
+  },
+  "key_conclusion_en": "The previous max_error < 0.016 claim only holds for bounded synthetic BF16 tensors. On real Qwen2.5-7B BF16 KV tensors, large activation outliers increase max absolute error to about 1.68, while weighted mean absolute error remains about 0.041.",
+  "key_conclusion_zh": "之前 max_error < 0.016 的结论只适用于有界合成 BF16 张量。在真实 Qwen2.5-7B BF16 KV 上，activation outlier 会把最大绝对误差推高到约 1.68，但加权平均绝对误差约为 0.041。",
+  "interpretation": {
+    "why_max_error_is_large": "The INT8 codec uses max-abs based symmetric per-vector scaling. With real KV max_abs around 424-426, the worst-case dequantization error is approximately max_abs / (2 * 127), which is about 1.67.",
+    "paper_statement": "Report synthetic and real-KV numeric error separately. Do not state that real KV max_error is < 0.016.",
+    "end_to_end_note": "This numeric error does not by itself prove output-quality degradation. Existing real-dataset runs still showed output match = 1.0 in measured scenarios."
+  },
+  "summary": [
+    {
+      "dataset": "narrativeqa",
+      "trace_path": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/narrativeqa_trace.jsonl",
+      "chunk_count": 96,
+      "failure_count": 0,
+      "dtype_values": [
+        "torch.bfloat16"
+      ],
+      "shape_values": [
+        "[2, 28, 256, 512]"
+      ],
+      "total_numel": 704643072,
+      "overall_max_err": 1.6769192218780518,
+      "weighted_mean_err": 0.04110204075307896,
+      "mean_chunk_max_err": 1.6570469737052917,
+      "max_abs_original": 426.0,
+      "chunks_gt_0p016": 96,
+      "chunks_gt_0p02": 96,
+      "chunks_gt_0p05": 96,
+      "chunks_gt_0p1": 96,
+      "max_sample_p99_err": 0.62109375,
+      "max_sample_p999_err": 1.53125
+    },
+    {
+      "dataset": "hotpotqa",
+      "trace_path": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/hotpotqa_trace.jsonl",
+      "chunk_count": 64,
+      "failure_count": 0,
+      "dtype_values": [
+        "torch.bfloat16"
+      ],
+      "shape_values": [
+        "[2, 28, 256, 512]"
+      ],
+      "total_numel": 469762048,
+      "overall_max_err": 1.6746432781219482,
+      "weighted_mean_err": 0.040842031652573496,
+      "mean_chunk_max_err": 1.6545315124094486,
+      "max_abs_original": 426.0,
+      "chunks_gt_0p016": 64,
+      "chunks_gt_0p02": 64,
+      "chunks_gt_0p05": 64,
+      "chunks_gt_0p1": 64,
+      "max_sample_p99_err": 0.6462843418121338,
+      "max_sample_p999_err": 1.5494484901428223
+    },
+    {
+      "dataset": "sharegpt",
+      "trace_path": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260506_221907_real_kv_int8_error_qwen7b_16k/sharegpt_trace.jsonl",
+      "chunk_count": 64,
+      "failure_count": 0,
+      "dtype_values": [
+        "torch.bfloat16"
+      ],
+      "shape_values": [
+        "[2, 28, 256, 512]"
+      ],
+      "total_numel": 469762048,
+      "overall_max_err": 1.6667077541351318,
+      "weighted_mean_err": 0.04076680418802425,
+      "mean_chunk_max_err": 1.6550830081105232,
+      "max_abs_original": 424.0,
+      "chunks_gt_0p016": 64,
+      "chunks_gt_0p02": 64,
+      "chunks_gt_0p05": 64,
+      "chunks_gt_0p1": 64,
+      "max_sample_p99_err": 0.6268860697746277,
+      "max_sample_p999_err": 1.534881591796875
+    },
+    {
+      "dataset": "ALL",
+      "trace_path": "",
+      "chunk_count": 224,
+      "failure_count": 0,
+      "dtype_values": [
+        "torch.bfloat16"
+      ],
+      "shape_values": [
+        "[2, 28, 256, 512]"
+      ],
+      "total_numel": 1644167168,
+      "overall_max_err": 1.6769192218780518,
+      "weighted_mean_err": 0.04093197056291891,
+      "mean_chunk_max_err": 1.6557671374508314,
+      "max_abs_original": 426.0,
+      "chunks_gt_0p016": 224,
+      "chunks_gt_0p02": 224,
+      "chunks_gt_0p05": 224,
+      "chunks_gt_0p1": 224,
+      "max_sample_p99_err": 0.6462843418121338,
+      "max_sample_p999_err": 1.5494484901428223
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "event": "phase1_perf_diagnosis",
+  "codec_cost_benchmark_json": "/home/panzihang/src/LMCache-phase0-codex/phase1_runs/20260423_145714_int8_codec_cost/int8_codec_cost.json",
+  "summary_json": "/home/panzihang/src/LMCache-phase0-codex/PHASE1_RESULTS_SUMMARY.json",
+  "evidence": {
+    "medium_requests_call_wait_for_layer_load": true,
+    "full_hit_high_requests_call_wait_for_layer_load": false,
+    "signal": "medium runs emit adapter-level \"Retrieved N tokens\" log from wait_for_layer_load(); high full-hit runs only emit eager-drain warning plus cache_engine retrieve log"
+  },
+  "contexts": [
+    {
+      "context_len": 16384,
+      "high_reuse": {
+        "o1_retrieve_delta_vs_full_ms": 221.783,
+        "o2_retrieve_delta_vs_full_ms": 408.182,
+        "o1_codec_decode_boundary_ms": 107.849,
+        "o2_codec_decode_boundary_ms": 231.057,
+        "o1_codec_decode_tensor_only_ms": 48.221,
+        "o2_codec_decode_tensor_only_ms": 90.509,
+        "o2_minus_o1_ttft_ms": 220.175
+      },
+      "medium_reuse": {
+        "o1_store_delta_vs_full_ms": 384.34,
+        "o1_retrieve_delta_vs_full_ms": 112.178,
+        "o2_store_delta_vs_full_ms": 2721.128,
+        "o2_retrieve_delta_vs_full_ms": 547.018,
+        "o1_codec_encode_boundary_scaled_ms": 99.484,
+        "o1_codec_decode_boundary_scaled_ms": 53.925,
+        "o2_codec_encode_boundary_scaled_ms": 286.901,
+        "o2_codec_decode_boundary_scaled_ms": 115.528,
+        "o2_minus_o1_ttft_ms": -4.645
+      }
+    },
+    {
+      "context_len": 32512,
+      "high_reuse": {
+        "o1_retrieve_delta_vs_full_ms": 389.439,
+        "o2_retrieve_delta_vs_full_ms": 716.081,
+        "o1_codec_decode_boundary_ms": 287.88,
+        "o2_codec_decode_boundary_ms": 461.924,
+        "o1_codec_decode_tensor_only_ms": 82.247,
+        "o2_codec_decode_tensor_only_ms": 163.693,
+        "o2_minus_o1_ttft_ms": 386.427
+      },
+      "medium_reuse": {
+        "o1_store_delta_vs_full_ms": 682.483,
+        "o1_retrieve_delta_vs_full_ms": 158.496,
+        "o2_store_delta_vs_full_ms": 6646.745,
+        "o2_retrieve_delta_vs_full_ms": 835.896,
+        "o1_codec_encode_boundary_scaled_ms": 358.082,
+        "o1_codec_decode_boundary_scaled_ms": 142.807,
+        "o2_codec_encode_boundary_scaled_ms": 502.356,
+        "o2_codec_decode_boundary_scaled_ms": 229.143,
+        "o2_minus_o1_ttft_ms": 158.659
+      }
+    }
+  ],
+  "conclusion": {
+    "codec_cost_is_material": true,
+    "codec_cost_alone_does_not_explain_o2_medium_store_overhead": true,
+    "full_hit_o2_still_depends_on_eager_drain_under_current_vllm_hooking": true
+  }
+}

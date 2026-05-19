@@ -1,0 +1,6 @@
+policy,threshold,bytes_ratio,mean_ttft_ms,output_tok_s,full_chunks,base_chunks,run
+precision all-full,-,1.0,34.49296951293945,193.04009510994567,8,0,/home/panzihang/src/experience/runs/phase1_20260518_134027_precision_allfull/bench/bench_summary.json
+threshold mixed,0.25,1.0,36.20100021362305,192.5403608643883,8,0,/home/panzihang/src/experience/runs/phase6b_20260518_213504_threshold_0.25_qpd1_gpu3_valid
+threshold mixed,0.50,0.876953,33.51966540018717,193.1059069081905,6,2,/home/panzihang/src/experience/runs/phase6b_20260518_213610_threshold_0.50_qpd1_gpu3_valid
+threshold mixed,0.75,0.753906,33.98545583089193,193.3176717125324,4,4,/home/panzihang/src/experience/runs/phase6b_20260518_212024_threshold_0.75_qpd1_gpu3
+all-base gpu codec,-,0.507812,33.86839230855306,193.0714525357772,0,8,/home/panzihang/src/experience/runs/phase5_gpu_codec_20260518_192802_mp_allbase_int8_gpu3

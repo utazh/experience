@@ -1,0 +1,110 @@
+{
+  "conclusion": {
+    "caveat": "32K should use chunk-aligned context lengths for LMCache, e.g. 32512 with chunk_size=256, because unaligned 32752 exposed a tail-chunk/state-store boundary and is excluded.",
+    "interpretation": "The improvement ratio changes with context length and workload. The repeated 66-67% seen in 16K runs is not by itself evidence of an experiment bug.",
+    "is_always_66_67_pct": false,
+    "main_evidence": "HotpotQA 8K improvement is about 58%, while HotpotQA 16K is about 66%; ShareGPT 32K chunk-aligned is about 69%."
+  },
+  "date": "2026-05-05",
+  "excluded_runs": [
+    {
+      "context_len": 32752,
+      "core_state_full_ready_lines": 0,
+      "core_state_promoting_lines": 52,
+      "no_promotion_subseq_ms": 758.765,
+      "oracle_subseq_ms": 798.792,
+      "promotion_subseq_ms": 3087.786,
+      "reason_excluded": "context_len=32752 is not divisible by LMCache chunk_size=256; LMCache retrieved only 32512 full-chunk tokens and internal state for the full prefix stayed PROMOTING.",
+      "retrieved_32512_lines": 20,
+      "run_dir": "phase2_runs/20260505_real_sharegpt_32k32752_qwen7b_internal_contextcheck"
+    }
+  ],
+  "hotpotqa_32k_feasibility": {
+    "conclusion": "HotpotQA cannot supply a real 32K prompt under the current Qwen tokenizer/prompt construction.",
+    "count_ge_16384": 65,
+    "count_ge_32768": 0,
+    "count_ge_8192": 173,
+    "dataset_path": "/data1/datasets/LongBench/data/hotpotqa.jsonl",
+    "max_prompt_tokens": 17625,
+    "tokenizer": "/data1/llm/Qwen/Qwen2.5-7B-Instruct"
+  },
+  "purpose": "Check whether Phase2 promotion TTFT improvement is always 66-67% or varies with context length.",
+  "valid_runs": [
+    {
+      "context_len": 8192,
+      "core_auto_lines": 36,
+      "core_state_base_ready_lines": 14,
+      "core_state_full_ready_lines": 22,
+      "core_state_promoting_lines": 0,
+      "dataset": "hotpotqa",
+      "final_state": "FULL_READY",
+      "internal_state_lines": 65,
+      "match_rate": 1.0,
+      "name": "hotpotqa_8k",
+      "no_promotion_subseq_ms": 183.182,
+      "oracle_subseq_ms": 76.866,
+      "promotion_subseq_ms": 76.936,
+      "promotion_success": 1,
+      "promotion_vs_no_promotion_improvement_pct": 58.00024019827275,
+      "promotion_vs_oracle_delta_pct": 0.0910675721385364,
+      "run_dir": "phase2_runs/20260505_real_hotpotqa_8k_qwen7b_internal_contextcheck"
+    },
+    {
+      "context_len": 16384,
+      "core_auto_lines": 36,
+      "core_state_base_ready_lines": 14,
+      "core_state_full_ready_lines": 22,
+      "core_state_promoting_lines": 0,
+      "dataset": "hotpotqa",
+      "final_state": "FULL_READY",
+      "internal_state_lines": 73,
+      "match_rate": 1.0,
+      "name": "hotpotqa_16k",
+      "no_promotion_subseq_ms": 366.683,
+      "oracle_subseq_ms": 127.265,
+      "promotion_subseq_ms": 124.491,
+      "promotion_success": 1,
+      "promotion_vs_no_promotion_improvement_pct": 66.04942143486336,
+      "promotion_vs_oracle_delta_pct": -2.1797037677287556,
+      "run_dir": "phase2_runs/20260504_real_hotpotqa_16k_qwen7b_internal"
+    },
+    {
+      "context_len": 16384,
+      "core_auto_lines": 36,
+      "core_state_base_ready_lines": 14,
+      "core_state_full_ready_lines": 22,
+      "core_state_promoting_lines": 0,
+      "dataset": "sharegpt",
+      "final_state": "FULL_READY",
+      "internal_state_lines": 73,
+      "match_rate": 1.0,
+      "name": "sharegpt_16k",
+      "no_promotion_subseq_ms": 388.808,
+      "oracle_subseq_ms": 129.188,
+      "promotion_subseq_ms": 128.82,
+      "promotion_success": 1,
+      "promotion_vs_no_promotion_improvement_pct": 66.86796567971852,
+      "promotion_vs_oracle_delta_pct": -0.28485617859243506,
+      "run_dir": "phase2_runs/20260504_real_sharegpt_16k_qwen7b_internal"
+    },
+    {
+      "context_len": 32512,
+      "core_auto_lines": 36,
+      "core_state_base_ready_lines": 14,
+      "core_state_full_ready_lines": 22,
+      "core_state_promoting_lines": 0,
+      "dataset": "sharegpt",
+      "final_state": "FULL_READY",
+      "internal_state_lines": 89,
+      "match_rate": 1.0,
+      "name": "sharegpt_32k_aligned",
+      "no_promotion_subseq_ms": 798.248,
+      "oracle_subseq_ms": 249.29,
+      "promotion_subseq_ms": 249.027,
+      "promotion_success": 1,
+      "promotion_vs_no_promotion_improvement_pct": 68.80330423627744,
+      "promotion_vs_oracle_delta_pct": -0.10549961891772844,
+      "run_dir": "phase2_runs/20260505_real_sharegpt_32k32512_qwen7b_internal_contextcheck"
+    }
+  ]
+}

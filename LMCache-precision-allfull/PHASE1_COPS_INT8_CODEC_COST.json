@@ -1,0 +1,143 @@
+{
+  "event": "int8_codec_cost_benchmark",
+  "dtype": "torch.bfloat16",
+  "chunk_size": 256,
+  "num_layers": 28,
+  "hidden_dim": 512,
+  "warmup": 1,
+  "iters": 2,
+  "results": [
+    {
+      "mode": "tensor_only",
+      "path": "o1_non_layerwise",
+      "context_len": 16384,
+      "object_count": 64,
+      "shape": [
+        2,
+        28,
+        256,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 728.896,
+      "decode_ms_total": 419.82,
+      "encode_ms_per_object": 11.389006,
+      "decode_ms_per_object": 6.559684
+    },
+    {
+      "mode": "tensor_only",
+      "path": "o2_layerwise",
+      "context_len": 16384,
+      "object_count": 1792,
+      "shape": [
+        256,
+        2,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 306.865,
+      "decode_ms_total": 85.181,
+      "encode_ms_per_object": 0.171241,
+      "decode_ms_per_object": 0.047534
+    },
+    {
+      "mode": "memory_obj_boundary",
+      "path": "o1_non_layerwise",
+      "context_len": 16384,
+      "object_count": 64,
+      "shape": [
+        2,
+        28,
+        256,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 352.553,
+      "decode_ms_total": 108.035,
+      "encode_ms_per_object": 5.508641,
+      "decode_ms_per_object": 1.68804
+    },
+    {
+      "mode": "memory_obj_boundary",
+      "path": "o2_layerwise",
+      "context_len": 16384,
+      "object_count": 1792,
+      "shape": [
+        256,
+        2,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 561.221,
+      "decode_ms_total": 222.925,
+      "encode_ms_per_object": 0.313181,
+      "decode_ms_per_object": 0.1244
+    },
+    {
+      "mode": "tensor_only",
+      "path": "o1_non_layerwise",
+      "context_len": 32512,
+      "object_count": 127,
+      "shape": [
+        2,
+        28,
+        256,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 479.174,
+      "decode_ms_total": 156.226,
+      "encode_ms_per_object": 3.773027,
+      "decode_ms_per_object": 1.230124
+    },
+    {
+      "mode": "tensor_only",
+      "path": "o2_layerwise",
+      "context_len": 32512,
+      "object_count": 3556,
+      "shape": [
+        256,
+        2,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 731.33,
+      "decode_ms_total": 152.575,
+      "encode_ms_per_object": 0.205661,
+      "decode_ms_per_object": 0.042906
+    },
+    {
+      "mode": "memory_obj_boundary",
+      "path": "o1_non_layerwise",
+      "context_len": 32512,
+      "object_count": 127,
+      "shape": [
+        2,
+        28,
+        256,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 579.351,
+      "decode_ms_total": 235.373,
+      "encode_ms_per_object": 4.561819,
+      "decode_ms_per_object": 1.85333
+    },
+    {
+      "mode": "memory_obj_boundary",
+      "path": "o2_layerwise",
+      "context_len": 32512,
+      "object_count": 3556,
+      "shape": [
+        256,
+        2,
+        512
+      ],
+      "dtype": "torch.bfloat16",
+      "encode_ms_total": 972.292,
+      "decode_ms_total": 441.791,
+      "encode_ms_per_object": 0.273423,
+      "decode_ms_per_object": 0.124238
+    }
+  ]
+}

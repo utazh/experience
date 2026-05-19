@@ -1,0 +1,4 @@
+policy,samples,retrieve_bytes_ratio,mean_ttft_ms,mean_latency_ms,overall_f1,qasper_f1,multifieldqa_en_f1,qasper_ttft_ms,multifieldqa_en_ttft_ms,retrieve_events,retrieve_chunks,retrieve_full_chunks,retrieve_base_chunks,mean_decode_enqueue_ms,prefetch_hits,prefetch_total,qasper_truncated,multifieldqa_en_truncated,pred_diff_vs_all_full,pred_sha16,errors
+all-full,350,1.0,133.4827,546.6259,46.9901,46.1787,48.072,110.1753,164.5593,0,0,0,0,,8851,9157,17,63,0,143bd456ce75674a,2
+threshold=0.75,350,0.665271,125.342,528.2314,46.2363,45.2833,47.507,109.4878,146.4809,379,7602,2432,5170,1.4203,7718,7808,17,63,91,4626e56af4e45b70,3
+all-base,350,0.507812,125.1267,530.0422,45.7503,44.9196,46.858,108.4697,147.3362,379,7615,0,7615,2.2314,7734,7904,17,63,108,f1a5d24b3af32d1a,2

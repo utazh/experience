@@ -1,0 +1,368 @@
+{
+  "artifact": "PHASE2_CLEANUP_E2E_RESULTS_20260503",
+  "root": "/home/panzihang/src/LMCache-phase0-codex",
+  "modlog": "_codex_modlog/20260503_cleanup_e2e",
+  "modified_files": [
+    "lmcache/v1/cache_engine.py",
+    "lmcache/v1/config.py",
+    "benchmarks/quality_aware_kv/phase2/run_phase2_hot_prefix.py",
+    "benchmarks/quality_aware_kv/phase2/parse_phase2_hot_prefix.py",
+    "benchmarks/quality_aware_kv/phase2/verify_phase2_storage_routing.py",
+    "lmcache/c_ops.py -> lmcache/c_ops_python_fallback.py"
+  ],
+  "backup_policy": "Original active files copied to _codex_modlog/20260503_cleanup_e2e/baseline_files; old backup-like files moved to archived_backups, not deleted.",
+  "cleanup_smoke_run": "phase2_runs/20260503_144506_cleanup_auto_smoke_512_llama1b_retry",
+  "cleanup_smoke_summary": {
+    "scenario": "promotion",
+    "prefix_id": "323a442301e29bc0",
+    "final_state": "FULL_READY",
+    "access_count": 3,
+    "base_hit_count": 1,
+    "full_hit_count": 2,
+    "full_reuse_count": 2,
+    "promotion_enqueued": 1,
+    "promotion_success": 1,
+    "promotion_failure": 0,
+    "promotion_dropped": 0,
+    "promotion_latency_p50_ms": 29.111,
+    "promotion_reuse_rate": 2.0,
+    "context_len": 512,
+    "max_tokens": 4,
+    "num_followup_requests": 3,
+    "first_followup_ttft_ms": 17.282,
+    "mean_followup_ttft_ms": 13.604,
+    "mean_subsequent_ttft_ms": 11.764,
+    "mean_followup_match_rate": 1.0,
+    "promotion_mode": "request_driven_full_disk_retrieve_writeback",
+    "experiment_boundary": "first-request base/full dual-store is enabled; base is stored to the configured fast target and full to the configured slow target; promotion is approximated by a request-driven full-disk retrieve that writes back to LocalCPU, not by an independent background scheduler"
+  },
+  "cleanup_rows": [
+    {
+      "event": "request_result",
+      "scenario": "promotion",
+      "prefix_id": "323a442301e29bc0",
+      "request_kind": "promotion_materialize_full",
+      "sequence_index": 1,
+      "state_before": "PROMOTING",
+      "state_after": "FULL_READY",
+      "requested_fidelity": "full",
+      "decision_reason": "full_disk_retrieve_writeback_after_dual_write",
+      "prompt_tokens": 512,
+      "skip_save": false,
+      "output_match_rate_vs_full_ref": 1.0,
+      "req_id": "phase2_promotion_promotion_materialize_full_1_full_323a442301e29bc0",
+      "engine_req_id": "phase2_promotion_promotion_materialize_full_1_full_323a442301e29bc0",
+      "start_wall_ts": "2026-05-03 14:45:38.713",
+      "first_token_wall_ts": "2026-05-03 14:45:38.731",
+      "end_wall_ts": "2026-05-03 14:45:38.742",
+      "ttft_ms": 18.218,
+      "e2e_ms": 28.903,
+      "output_preview": "_promotion_85",
+      "output_token_ids": [
+        48977,
+        6082,
+        62,
+        5313
+      ],
+      "lmcache_total_tokens": 512,
+      "lmcache_computed_tokens": 0,
+      "lmcache_hit_tokens": 512,
+      "lmcache_need_to_load_tokens": 511,
+      "retrieved_tokens": 512,
+      "required_tokens": 512,
+      "retrieve_total_tokens": 512,
+      "retrieve_size_gb": 0.0156,
+      "retrieve_ms": 7.9502,
+      "retrieve_events": 1,
+      "base_cleanup_chunks": 2,
+      "base_cleanup_removed": 2,
+      "base_cleanup_events": 1,
+      "base_cleanup_locations": "LocalCPUBackend",
+      "lmcache_hit_ratio": 1.0
+    },
+    {
+      "event": "request_result",
+      "scenario": "promotion",
+      "prefix_id": "323a442301e29bc0",
+      "request_kind": "followup",
+      "sequence_index": 2,
+      "state_before": "FULL_READY",
+      "state_after": "FULL_READY",
+      "requested_fidelity": "full",
+      "decision_reason": "full_ready_hit",
+      "prompt_tokens": 512,
+      "skip_save": false,
+      "output_match_rate_vs_full_ref": 1.0,
+      "req_id": "phase2_promotion_followup_2_full_323a442301e29bc0",
+      "engine_req_id": "phase2_promotion_followup_2_full_323a442301e29bc0",
+      "start_wall_ts": "2026-05-03 14:45:38.843",
+      "first_token_wall_ts": "2026-05-03 14:45:38.854",
+      "end_wall_ts": "2026-05-03 14:45:38.865",
+      "ttft_ms": 11.789,
+      "e2e_ms": 22.594,
+      "output_preview": "_promotion_85",
+      "output_token_ids": [
+        48977,
+        6082,
+        62,
+        5313
+      ],
+      "lmcache_total_tokens": 512,
+      "lmcache_computed_tokens": 0,
+      "lmcache_hit_tokens": 512,
+      "lmcache_need_to_load_tokens": 511,
+      "retrieved_tokens": 512,
+      "required_tokens": 512,
+      "retrieve_total_tokens": 512,
+      "retrieve_size_gb": 0.0156,
+      "retrieve_ms": 1.6975,
+      "retrieve_events": 1,
+      "base_cleanup_chunks": 2,
+      "base_cleanup_removed": 0,
+      "base_cleanup_events": 1,
+      "base_cleanup_locations": "LocalCPUBackend",
+      "lmcache_hit_ratio": 1.0
+    },
+    {
+      "event": "request_result",
+      "scenario": "promotion",
+      "prefix_id": "323a442301e29bc0",
+      "request_kind": "followup",
+      "sequence_index": 3,
+      "state_before": "FULL_READY",
+      "state_after": "FULL_READY",
+      "requested_fidelity": "full",
+      "decision_reason": "full_ready_hit",
+      "prompt_tokens": 512,
+      "skip_save": false,
+      "output_match_rate_vs_full_ref": 1.0,
+      "req_id": "phase2_promotion_followup_3_full_323a442301e29bc0",
+      "engine_req_id": "phase2_promotion_followup_3_full_323a442301e29bc0",
+      "start_wall_ts": "2026-05-03 14:45:38.966",
+      "first_token_wall_ts": "2026-05-03 14:45:38.977",
+      "end_wall_ts": "2026-05-03 14:45:38.988",
+      "ttft_ms": 11.74,
+      "e2e_ms": 22.507,
+      "output_preview": "_promotion_85",
+      "output_token_ids": [
+        48977,
+        6082,
+        62,
+        5313
+      ],
+      "lmcache_total_tokens": 512,
+      "lmcache_computed_tokens": 0,
+      "lmcache_hit_tokens": 512,
+      "lmcache_need_to_load_tokens": 511,
+      "retrieved_tokens": 512,
+      "required_tokens": 512,
+      "retrieve_total_tokens": 512,
+      "retrieve_size_gb": 0.0156,
+      "retrieve_ms": 1.697,
+      "retrieve_events": 1,
+      "base_cleanup_chunks": 2,
+      "base_cleanup_removed": 0,
+      "base_cleanup_events": 1,
+      "base_cleanup_locations": "LocalCPUBackend",
+      "lmcache_hit_ratio": 1.0
+    }
+  ],
+  "routing_check": {
+    "run_dir": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260503_144506_cleanup_auto_smoke_512_llama1b_retry",
+    "log_path": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260503_144506_cleanup_auto_smoke_512_llama1b_retry/run.log",
+    "disk_dir": "/data1/panzihang/lmcache_phase2_disk/20260503_144506_cleanup_auto_smoke_512_llama1b_retry",
+    "dual_write_events": 1,
+    "base_locations": [
+      "LocalCPUBackend"
+    ],
+    "full_locations": [
+      "LocalDiskBackend"
+    ],
+    "disk_file_count": 2,
+    "full_disk_file_count": 2,
+    "base_disk_file_count": 0,
+    "ok": true,
+    "errors": []
+  },
+  "write_amp_summary": {
+    "artifact": "PHASE2_WRITE_AMP_SYNC_SPLIT_20260503",
+    "dual_run": "phase2_runs/20260424_163955_32k32760_dualwrite_qwen7b_matrix",
+    "single_run": "phase2_runs/20260424_164414_32k32760_singlewrite_qwen7b_baseline",
+    "model": "Qwen2.5-7B-Instruct",
+    "context_len": 32760,
+    "dual_prime_ttft_ms": 11480.835,
+    "single_prime_ttft_ms": 10839.502,
+    "ttft_overhead_ms": 641.333,
+    "ttft_overhead_pct": 5.917,
+    "dual_store_ms_total_logged": 1635.176,
+    "single_store_ms_total_logged": 1003.1898000000001,
+    "store_ms_overhead_logged": 631.986,
+    "dual_write_sync_submit_ms": 1428.344,
+    "dual_write_base_encode_ms": 1418.4621000000002,
+    "dual_write_full_submit_ms": 8.971599999999999,
+    "dual_write_base_put_ms": 0.9107000000000001,
+    "dual_write_chunks": 127,
+    "dual_write_events": 16,
+    "dual_write_base_locations": "LocalCPUBackend",
+    "dual_write_full_locations": "LocalDiskBackend",
+    "interpretation": [
+      "dual_write_sync_submit_ms is the explicitly logged synchronous base encode + full submit + base put section inside PHASE2_DUAL_WRITE.",
+      "store_ms_total_logged includes broader LMCache store accounting: process tokens, D2H/from-gpu, put profile, and related overhead.",
+      "The first-request TTFT overhead is the user-visible number; it is larger than full_submit_ms because base encode and D2H are on the foreground path."
+    ]
+  },
+  "hardening_patch": {
+    "modlog": "_codex_modlog/20260503_hardening_patch",
+    "changes": [
+      "Phase2 dual-store target resolution now fail-fasts when a configured backend is unavailable instead of silently falling back to single-variant store.",
+      "The base dual-store target is constrained to LocalCPUBackend because the int8 base variant depends on codec metadata that LocalDiskBackend does not persist.",
+      "Layerwise base cleanup now emits PHASE2_BASE_CLEANUP_SKIPPED and does not remove base chunks until the layerwise path has an explicit full fast-tier writeback barrier."
+    ],
+    "validation": {
+      "server_py_compile": true,
+      "json_tool": true,
+      "smoke_run": "phase2_runs/20260503_hardening_smoke_512_llama1b",
+      "smoke_summary": {
+        "final_state": "FULL_READY",
+        "promotion_success": 1,
+        "promotion_failure": 0,
+        "full_reuse_count": 1,
+        "mean_followup_match_rate": 1.0
+      },
+      "routing_check": {
+        "dual_write_events": 1,
+        "base_locations": [
+          "LocalCPUBackend"
+        ],
+        "full_locations": [
+          "LocalDiskBackend"
+        ],
+        "full_disk_file_count": 2,
+        "base_disk_file_count": 0,
+        "ok": true
+      },
+      "fail_fast_unit_checks": [
+        "missing configured backend raises ValueError",
+        "base target LocalDiskBackend raises ValueError"
+      ]
+    }
+  },
+  "core_auto_policy_patch": {
+    "modlog": "_codex_modlog/20260503_core_auto_policy",
+    "changes": [
+      "lmcache/v1/fidelity/policy.py now supports auto_state_store_v0 when default_fidelity=auto and request metadata includes lmcache.state_store_v0.state.",
+      "Phase2 followup requests now pass state_store_v0 metadata without explicit lmcache.fidelity, forcing the base/full choice through normalize_request_configs and policy.py.",
+      "cache_engine.py logs PHASE2_CORE_AUTO_DECISION for state-store auto decisions.",
+      "Dual-store key count mismatch now raises ValueError instead of falling back to single-variant store."
+    ],
+    "validation": {
+      "server_py_compile": true,
+      "policy_unit_check": {
+        "FULL_READY": "full",
+        "PROMOTING": "base",
+        "BASE_READY": "base",
+        "MISS": "base",
+        "invalid_state": "ValueError"
+      },
+      "smoke_run": "phase2_runs/20260503_core_auto_smoke_512_llama1b_retry",
+      "smoke_followups": [
+        {
+          "sequence_index": 1,
+          "state_before": "BASE_READY",
+          "requested_fidelity": "base",
+          "fidelity_policy_path": "core_auto_state_store_v0",
+          "decision_reason": "base_ready_hit"
+        },
+        {
+          "sequence_index": 2,
+          "state_before": "FULL_READY",
+          "requested_fidelity": "full",
+          "fidelity_policy_path": "core_auto_state_store_v0",
+          "decision_reason": "full_ready_hit"
+        }
+      ],
+      "smoke_summary": {
+        "final_state": "FULL_READY",
+        "promotion_success": 1,
+        "promotion_failure": 0,
+        "full_reuse_count": 1,
+        "mean_followup_match_rate": 1.0
+      },
+      "routing_check": {
+        "dual_write_events": 1,
+        "base_locations": [
+          "LocalCPUBackend"
+        ],
+        "full_locations": [
+          "LocalDiskBackend"
+        ],
+        "full_disk_file_count": 2,
+        "base_disk_file_count": 0,
+        "ok": true
+      }
+    },
+    "known_boundary": "The Phase2 harness still owns the in-memory state_store_v0 metadata; the core policy consumes that state and selects fidelity, but state persistence and eviction-driven state repair are separate future work."
+  },
+  "parser_mixed_core_auto_patch": {
+    "modlog": "_codex_modlog/20260503_parser_mixed_core_auto",
+    "changes": [
+      "parse_phase2_hot_prefix.py now parses PHASE2_CORE_AUTO_DECISION into summary_json.core_auto_decisions.",
+      "Requests using fidelity_policy_path=core_auto_state_store_v0 are annotated with core_auto_match, core_auto_decision_count, core_auto_selected_fidelity, and core_auto_reason when a matching core decision is found.",
+      "PHASE2_CORE_AUTO_DECISION now includes sequence_index to make parser matching deterministic.",
+      "run_phase2_hot_cold_mixed.py now uses default_fidelity=auto and passes followup requests through the same core_auto_state_store_v0 path as hot-prefix."
+    ],
+    "validation": {
+      "server_py_compile": true,
+      "json_tool": true,
+      "mixed_smoke_run": "phase2_runs/20260503_mixed_core_auto_smoke_512_llama1b",
+      "parsed_core_auto_decisions": 6,
+      "parsed_followup_core_auto_matches": [
+        {
+          "scenario": "mixed_cold",
+          "sequence_index": 1,
+          "state_before": "BASE_READY",
+          "requested_fidelity": "base",
+          "core_auto_match": true,
+          "core_auto_decision_count": 2
+        },
+        {
+          "scenario": "mixed_hot",
+          "sequence_index": 1,
+          "state_before": "BASE_READY",
+          "requested_fidelity": "base",
+          "core_auto_match": true,
+          "core_auto_decision_count": 2
+        },
+        {
+          "scenario": "mixed_hot",
+          "sequence_index": 2,
+          "state_before": "FULL_READY",
+          "requested_fidelity": "full",
+          "core_auto_match": true,
+          "core_auto_decision_count": 2
+        }
+      ],
+      "routing_check": {
+        "dual_write_events": 2,
+        "base_locations": [
+          "LocalCPUBackend"
+        ],
+        "full_locations": [
+          "LocalDiskBackend"
+        ],
+        "full_disk_file_count": 4,
+        "base_disk_file_count": 0,
+        "ok": true
+      }
+    },
+    "known_boundary": "The harness still computes the expected state transition and passes state metadata; this patch strengthens evidence that core policy consumed the metadata and selected fidelity, but does not make state_store_v0 persistent."
+  },
+  "known_boundaries": [
+    "LMCACHE_CLEANUP_BASE_ON_FULL_STORE defaults to False and must be explicitly enabled for cleanup experiments.",
+    "The current auto state source is harness-level state_store_v0, but the fidelity selection now runs through core lmcache/v1/fidelity/policy.py as auto_state_store_v0: BASE_READY/PROMOTING/MISS choose base, FULL_READY chooses full. It logs PHASE2_AUTO_DECISION as harness input and PHASE2_CORE_AUTO_DECISION as core policy output.",
+    "Base int8 persistence is an experiment constraint, not a generalized storage feature: dual-store base must target LocalCPUBackend; LocalDiskBackend does not persist the codec metadata needed by the int8 base variant.",
+    "Base cleanup is only active on non-layerwise full materialization/reuse paths. Layerwise cleanup is intentionally skipped because that path does not currently prove full is written back into the fast tier.",
+    "FULL_READY eviction fallback is not fully implemented as an LMCache eviction hook. With base cleanup enabled, downgrading to BASE_READY is not generally correct because the base fast-tier copy was removed; a future robust state model should distinguish FULL_READY_FAST, FULL_READY_SLOW, BASE_READY, and MISS or verify fast-tier full before choosing full.",
+    "Promotion is still request-driven full-disk retrieve/writeback, not an independent background scheduler, per current experiment scope."
+  ]
+}

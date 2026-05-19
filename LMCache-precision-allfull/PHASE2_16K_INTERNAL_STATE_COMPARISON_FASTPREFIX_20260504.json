@@ -1,0 +1,41 @@
+{
+  "harness_dir": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260504_16k16384_qwen7b_harness_state_control_fastprefix",
+  "internal_dir": "/home/panzihang/src/LMCache-phase0-codex/phase2_runs/20260504_16k16384_qwen7b_internal_state_compare_fastprefix",
+  "rows": [
+    {
+      "scenario": "no_promotion",
+      "harness": 321.637,
+      "internal": 330.908,
+      "delta_pct": 2.882442007604851,
+      "h_match": 1.0,
+      "i_match": 1.0,
+      "h_final": "BASE_READY",
+      "i_final": "BASE_READY"
+    },
+    {
+      "scenario": "promotion",
+      "harness": 117.237,
+      "internal": 118.384,
+      "delta_pct": 0.9783600740380644,
+      "h_match": 1.0,
+      "i_match": 1.0,
+      "h_final": "FULL_READY",
+      "i_final": "FULL_READY"
+    },
+    {
+      "scenario": "oracle_full_ready",
+      "harness": 127.695,
+      "internal": 122.987,
+      "delta_pct": -3.6869102157484623,
+      "h_match": 1.0,
+      "i_match": 1.0,
+      "h_final": "FULL_READY",
+      "i_final": "FULL_READY"
+    }
+  ],
+  "evidence": {
+    "internal_state_lines": 80,
+    "internal_core_auto_lines": 36,
+    "harness_core_auto_lines": 36
+  }
+}

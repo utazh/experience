@@ -1,0 +1,118 @@
+{
+  "event": "phase1_cops_native_diagnosis",
+  "run_root": "phase1_runs/20260423_161242_cops_native_main_matrix",
+  "codec_cost_json": "PHASE1_COPS_INT8_CODEC_COST.json",
+  "environment": {
+    "venv": "~/venvs/vllm-stable",
+    "vllm": "0.19.0",
+    "torch": "2.10.0+cu130",
+    "cuda_home": "pip nvidia/cu13 toolkit, nvcc 13.2.78",
+    "gpu": "CUDA_VISIBLE_DEVICES=2",
+    "python_fallback": false,
+    "c_ops_available": true
+  },
+  "deltas": [
+    {
+      "context_len": 16384,
+      "reuse_bucket": "medium",
+      "phase0_ttft_ms": 2661.187,
+      "full_ttft_ms": 2306.05,
+      "o1_ttft_ms": 2645.99,
+      "o2_ttft_ms": 2326.597,
+      "o2_delta_vs_o1_ms": -319.393,
+      "o2_speedup_vs_o1_x": 1.137279,
+      "o2_delta_vs_full_ms": 20.547,
+      "o2_speedup_vs_full_x": 0.991169,
+      "o2_delta_vs_phase0_ms": -334.59,
+      "o2_speedup_vs_phase0_x": 1.143811,
+      "o2_output_match_rate_vs_full_ref": 1.0,
+      "o2_retrieve_ms": 497.782,
+      "o2_retrieve_size_gb": 0.2205,
+      "o2_store_ms": 2187.611,
+      "o2_store_size_gb": 0.2204
+    },
+    {
+      "context_len": 16384,
+      "reuse_bucket": "high",
+      "phase0_ttft_ms": 399.969,
+      "full_ttft_ms": 89.03,
+      "o1_ttft_ms": 245.514,
+      "o2_ttft_ms": 539.697,
+      "o2_delta_vs_o1_ms": 294.183,
+      "o2_speedup_vs_o1_x": 0.454911,
+      "o2_delta_vs_full_ms": 450.667,
+      "o2_speedup_vs_full_x": 0.164963,
+      "o2_delta_vs_phase0_ms": 139.728,
+      "o2_speedup_vs_phase0_x": 0.741099,
+      "o2_output_match_rate_vs_full_ref": 1.0,
+      "o2_retrieve_ms": 460.4694,
+      "o2_retrieve_size_gb": 0.4409,
+      "o2_store_ms": null,
+      "o2_store_size_gb": null
+    },
+    {
+      "context_len": 32512,
+      "reuse_bucket": "medium",
+      "phase0_ttft_ms": 6660.682,
+      "full_ttft_ms": 5912.124,
+      "o1_ttft_ms": 6552.108,
+      "o2_ttft_ms": 5977.714,
+      "o2_delta_vs_o1_ms": -574.394,
+      "o2_speedup_vs_o1_x": 1.096089,
+      "o2_delta_vs_full_ms": 65.59,
+      "o2_speedup_vs_full_x": 0.989028,
+      "o2_delta_vs_phase0_ms": -682.968,
+      "o2_speedup_vs_phase0_x": 1.114252,
+      "o2_output_match_rate_vs_full_ref": 1.0,
+      "o2_retrieve_ms": 626.6951,
+      "o2_retrieve_size_gb": 0.434,
+      "o2_store_ms": 5663.890600000001,
+      "o2_store_size_gb": 0.44079999999999997
+    },
+    {
+      "context_len": 32512,
+      "reuse_bucket": "high",
+      "phase0_ttft_ms": 630.572,
+      "full_ttft_ms": 138.48,
+      "o1_ttft_ms": 426.631,
+      "o2_ttft_ms": 946.76,
+      "o2_delta_vs_o1_ms": 520.129,
+      "o2_speedup_vs_o1_x": 0.450622,
+      "o2_delta_vs_full_ms": 808.28,
+      "o2_speedup_vs_full_x": 0.146267,
+      "o2_delta_vs_phase0_ms": 316.188,
+      "o2_speedup_vs_phase0_x": 0.666032,
+      "o2_output_match_rate_vs_full_ref": 1.0,
+      "o2_retrieve_ms": 840.5432,
+      "o2_retrieve_size_gb": 0.8749,
+      "o2_store_ms": null,
+      "o2_store_size_gb": null
+    }
+  ],
+  "codec_memory_obj_boundary": [
+    {
+      "context_len": 16384,
+      "path": "o1_non_layerwise",
+      "encode_ms_total": 352.553,
+      "decode_ms_total": 108.035
+    },
+    {
+      "context_len": 16384,
+      "path": "o2_layerwise",
+      "encode_ms_total": 561.221,
+      "decode_ms_total": 222.925
+    },
+    {
+      "context_len": 32512,
+      "path": "o1_non_layerwise",
+      "encode_ms_total": 579.351,
+      "decode_ms_total": 235.373
+    },
+    {
+      "context_len": 32512,
+      "path": "o2_layerwise",
+      "encode_ms_total": 972.292,
+      "decode_ms_total": 441.791
+    }
+  ]
+}
